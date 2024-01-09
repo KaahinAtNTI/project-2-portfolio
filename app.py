@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect, url_for
 
 app = Flask(__name__)
 
@@ -11,6 +11,15 @@ def home():
 @app.get('/projects')
 def display_projects():
   return render_template("projects.html")
+
+
+@app.post('/cms/project/add')
+def add_project():
+  title = request.form.get('name', 'not found')
+  description = request.form.get('description', 'not found')
+  print(title)
+  print(description)
+  return redirect(url_for('project_manager'))
 
 
 @app.get('/cms')
